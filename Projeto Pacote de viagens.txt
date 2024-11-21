@@ -1,0 +1,44 @@
+# Construção de um programa onde o usuário precisa contratar um pacote de viagens baseado no país.
+
+# Dicionário que mapeia países para seus respectivos continentes e pacotes de viagem
+import string
+
+# Dicionário de continentes e países
+continentes_pacotes = { 
+    'África': ['Egito', 'África do Sul', 'Marrocos', 'Quênia', 'Nigéria', 'Argélia', 'Tunísia', 'Gana', 'Angola', 'Senegal', 'Camarões', 'Costa do Marfim', 'Moçambique', 'Sudão', 'Etiópia'],
+    'Europa': ['França', 'Alemanha', 'Itália', 'Espanha', 'Reino Unido', 'Portugal', 'Países Baixos', 'Bélgica', 'Suécia', 'Noruega', 'Dinamarca', 'Finlândia', 'Polônia', 'Rússia', 'Suíça', 'Áustria', 'Grécia', 'Turquia', 'Irlanda', 'República Tcheca', 'Hungria', 'Croácia', 'Romênia'],
+    'América Latina': ['Brasil', 'Argentina', 'Chile', 'Colômbia', 'Peru', 'Venezuela', 'Equador', 'Bolívia', 'Paraguai', 'Uruguai', 'Suriname', 'Guiana', 'Guiana Francesa', 'Cuba', 'República Dominicana', 'Jamaica', 'Bahamas', 'Haiti', 'Belize', 'Costa Rica'],
+    'América do Norte': ['EUA', 'México', 'Canadá'],
+    'Mundo': ['China', 'Japão', 'Índia', 'Tailândia', 'Coreia do Sul', 'Coreia do Norte', 'Indonésia', 'Malásia', 'Filipinas', 'Paquistão', 'Bangladesh', 'Vietnã', 'Nepal', 'Sri Lanka', 'Cingapura', 'Emirados Árabes Unidos', 'Qatar', 'Arábia Saudita', 'Israel', 'Irã', 'Austrália', 'Nova Zelândia', 'Papua-Nova Guiné', 'Fiji', 'Samoa', 'Tonga', 'Ilhas Salomão', 'Vanuatu']
+}
+
+# Função para remover acentos (sem usar o unidecode)
+def remover_acentos(texto):
+    acentos = {'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ã': 'a', 'õ': 'o', 'â': 'a', 'ê': 'e', 'ô': 'o', 'à': 'a', 'è': 'e', 'ù': 'u', 'ç': 'c', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'}
+    for acento, sem_acento in acentos.items():
+        texto = texto.replace(acento, sem_acento)
+    return texto
+
+# Função para normalizar a string (ignorando maiúsculas, minúsculas, pontuação e acentos)
+def normalizar_string(texto):
+    texto_normalizado = texto.lower()  # Converte para minúsculas
+    texto_normalizado = texto_normalizado.translate(str.maketrans('', '', string.punctuation))  # Remove pontuação
+    texto_normalizado = remover_acentos(texto_normalizado)  # Remove acentos manualmente
+    return texto_normalizado
+
+# Função para determinar o continente e o pacote de viagem com base no país digitado
+def obter_pacote_viagem(pais):
+    pais_normalizado = normalizar_string(pais)  # Normaliza o nome do país do usuário
+    for continente, paises in continentes_pacotes.items():
+        # Normaliza os países do banco de dados também
+        paises_normalizados = [normalizar_string(p) for p in paises]
+        if pais_normalizado in paises_normalizados:
+            return f"Pacote {continente}"
+    return "País não encontrado no banco de dados."
+
+# Solicitar ao usuário que digite um país
+pais = input("Digite um país: ")
+
+# Exibir pacote
+pacote = obter_pacote_viagem(pais)
+print(pacote)
