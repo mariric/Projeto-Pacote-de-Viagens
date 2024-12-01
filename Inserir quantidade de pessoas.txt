@@ -1,0 +1,7 @@
+Inserir quantidade de pessoas
+
+# este código fará com que o usuário possa informar a quantidade de pessoas e o código irá recalcular o valor do pacote.
+
+qtd_pessoas = int(input("Digite a quantidade de pessoas: "))
+valor_viagem = calcular_valor_viagem(dias, continente) * qtd_pessoas
+print(f"O valor total do pacote para {dias} dias, para {qtd_pessoas} pessoas, na {continente} é: R$ {valor_viagem:.2f}")
