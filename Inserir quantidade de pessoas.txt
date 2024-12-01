@@ -1,0 +1,12 @@
+while True:
+    try:
+        pessoas = int(input("Digite a quantidade de pessoas que irão viajar (máximo 7): "))
+        if 1 <= pessoas <= 7:
+            break  # Entrada válida, sai do loop
+        else:
+            print("O número de pessoas deve ser entre 1 e 7. Tente novamente.")
+    except ValueError:
+        print("Por favor, insira um número válido para a quantidade de pessoas.")
+
+valor_viagem = calcular_valor_viagem(dias, continente) * pessoas
+print(f"O valor total do pacote para {dias} dias, para {pessoas} pessoa(s), na {continente} é: R$ {valor_viagem:.2f}")
