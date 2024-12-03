@@ -1,0 +1,9 @@
+motivos_validos = ['lazer', 'trabalho', "estudo", 'visita familiar']
+
+while True:
+  Tipo_Viagem = input("Qual o motivo da sua viagem(lazer/trabalho/estudo/Visita Familiar): ").strip().lower()
+  if Tipo_Viagem in motivos_validos:
+    break
+  else:
+    print("Motivo inválido. Tente novamente.")
+print(Tipo_Viagem)
