@@ -1,0 +1,15 @@
+deficiencia = input("Você é ou seu acompanhante é uma pessoa com deficiência(sim/não): ").strip().lower() # strip para remover espaçamentos e lower para converter em minusculas
+print(deficiencia)
+
+while deficiencia not in ["sim", "nao", "não"]: # validação da resposta
+    deficiencia = input("Resposta inválida. Digite 'sim' ou 'não': ").strip().lower()
+# ajuste do pacote baseado na declaração de deficiência, podendo ser armazenada para análise.
+if deficiencia == "sim":
+    desconto = 0.10  # 10% de desconto
+    print("Será aplicado um desconto de 10% no valor total.")
+else:
+    desconto = 0.00  # Sem desconto
+
+# Recálculo de valor
+valor_total = valor_viagem * (1 - desconto)
+print(f"O valor total do pacote, com os ajustes, é: R$ {valor_total:.2f}")
