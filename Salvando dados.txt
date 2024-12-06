@@ -1,0 +1,65 @@
+Salvando dados
+Dados serão salvos em planilha Excel. Para isso, precisaremos importar uma biblioteca chamada openpyxl.
+
+%pip install openpyxl
+
+from datetime import date
+import openpyxl  # Biblioteca para manipulação de Excel
+
+def salvar_dados_excel(dados):
+    """
+    Salva os dados em um arquivo Excel.
+    Se o arquivo não existir, ele será criado. Caso exista, os dados serão adicionados.
+    """
+    arquivo_excel = "dados_viagem.xlsx"  # Nome do arquivo Excel
+
+    try:
+        # Tenta abrir o arquivo existente
+        workbook = openpyxl.load_workbook(arquivo_excel)
+        sheet = workbook.active
+    except FileNotFoundError:
+        # Caso o arquivo não exista, cria um novo
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+        # Cria o cabeçalho na planilha
+        sheet.append(["Data", "País", "Continente/Pacote", "Dias", "Pessoas", "Motivo", "Deficiência", "Valor Total"])
+
+    # Adiciona os dados na planilha
+    sheet.append(dados)
+
+    # Salva o arquivo Excel
+    workbook.save(arquivo_excel)
+    workbook.close()
+
+# Aqui deve ser o seu código principal com o cálculo da viagem
+pais = input("Digite um país: ")
+
+# Vamos supor que você tenha a função que retorna o continente/pacote
+continente = obter_pacote_viagem(pais)
+continentes_pacote = continente  # Definindo a variável 'continentes_pacote'
+
+# Outras variáveis do código
+dias = int(input("Digite a quantidade de dias para sua viagem: "))
+pessoas = int(input("Digite a quantidade de pessoas para sua viagem: "))
+motivo = input("Qual o motivo da sua viagem: ")
+deficiencia = input("Você é uma pessoa com deficiência? (sim/não): ")
+
+# Calculando o valor total (ajuste conforme a lógica do seu código)
+valor_total = calcular_valor_viagem(dias, continente) * pessoas
+
+# Apresentando o resultado para o usuário
+print("\nResumo da sua viagem:")
+print(f"País: {pais}")
+print(f"Continente/Pacote: {continentes_pacote}")
+print(f"Duração da viagem: {dias} dias")
+print(f"Número de pessoas: {pessoas}")
+print(f"Motivo da viagem: {motivo.capitalize()}")
+print(f"Deficiência: {deficiencia.capitalize()}")
+print(f"Valor Total: R$ {valor_total:.2f}")
+
+# Obtemos a data atual
+data_atual = date.today()
+
+# Salvando os dados no Excel
+salvar_dados_excel([data_atual, pais, continentes_pacote, dias, pessoas, motivo, deficiencia, valor_total])
+print("Os dados foram salvos com sucesso no arquivo 'dados_viagem.xlsx'")
